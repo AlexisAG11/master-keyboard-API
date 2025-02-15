@@ -14,7 +14,7 @@ const openai = new OpenAI({
     apiKey: API_KEY,
 });
 
-const contentText = "Give me 10 easy words to write, 10 difficult words to write, 10 medium difficulty words and format them in a JSON with only JSON data no useless text";
+const contentText = "Give me 10 easy words to write, 10 difficult words to write, 10 medium difficulty words and format them in a JSON with only JSON data no useless text and the name of the array are 'easy', 'medium', 'difficult'";
 
 app.use(cors({
     origin: 'http://localhost:4200'
