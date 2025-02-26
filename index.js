@@ -2,14 +2,17 @@ import express from "express";
 import dotenv from 'dotenv';
 import OpenAI from "openai";
 import cors from "cors"
+import helmet from "helmet"
+import xss from "xss-clean";
 
 
 
 const app = express();
 dotenv.config();
 
-const PORT = process.env.PORT;
+const port = process.env.PORT || 8080;
 const API_KEY = process.env.API_KEY;
+const ORIGIN = process.env.ORIGIN
 const openai = new OpenAI({
     apiKey: API_KEY,
 });
@@ -19,9 +22,10 @@ const contentText = "Give me exactly 30 random words and format them in a JSON w
 
 
 app.use(cors({
-    origin: 'http://localhost:4200'
-  }));
-
+    origin: ORIGIN
+}));
+app.use(helmet())
+app.use(xss())
 app.use(express.json());
 
 app.get('/gptResponse', async (req, res) => {
@@ -72,4 +76,4 @@ app.get('/gptResponse', async (req, res) => {
 //     })
 // })
 
-app.listen(PORT,(console.log(`Server is istening on port ${PORT}`)))
+app.listen(port,(console.log(`Server is istening on port ${port}`)))
